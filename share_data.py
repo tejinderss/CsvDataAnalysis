@@ -34,16 +34,18 @@ def get_shares_list():
                         MAX_PRICE_FIELD_NAME: int(max_for_company[company_name])
                         }})
 
-        return company_shares_list
-
     except IOError:
-        return None
+        pass
+
+    return company_shares_list
 
 
-if __name__ == "__main__":
+def main():
     entries = get_shares_list()
 
-    assert entries is not None, "The test file provided could not be opened"
+    if not entries:
+        # Cannot do this in module level execution, hence the main function
+        return
 
     for entry in entries:
         for key, value in entry.items():
@@ -51,3 +53,7 @@ if __name__ == "__main__":
             for k, v in value.items():
                 print("{} - {},".format(k, v), end=' ')
             print()
+
+
+if __name__ == "__main__":
+    main()
