@@ -28,8 +28,9 @@ def get_shares_list():
                 company_shares_list.append({
                     company_name: {
                         MONTH_FIELD_NAME: max_for_company[MONTH_FIELD_NAME],
-                        YEAR_FIELD_NAME: max_for_company[YEAR_FIELD_NAME],
-                        MAX_PRICE_FIELD_NAME: max_for_company[company_name]}})
+                        YEAR_FIELD_NAME: int(max_for_company[YEAR_FIELD_NAME]),
+                        MAX_PRICE_FIELD_NAME: int(max_for_company[company_name])
+                        }})
 
         return company_shares_list
 

@@ -15,10 +15,18 @@ class RandomCSVFile(unittest.TestCase):
 
 class ValidateResult(RandomCSVFile):
     """
-        Tests if the company records returned by get_shares_list matches
+        Tests if the company names returned by get_shares_list matches
         with the CSV data provided with the tests file provided with this
-        problem
+        problem. Second test is to make sure that the returned list contains
+        the proper type values. Year, Max Price should be of int type and
+        month is of basestring. Also makes sure that the record of each company
+        is if dict type.
     """
+    RECORD_TO_TYPE_MAP = {
+        'Year': int,
+        'Month': basestring,
+        'Max Price': int,
+    }
 
     def test_results(self):
         ret_val = get_shares_list()
@@ -26,7 +34,14 @@ class ValidateResult(RandomCSVFile):
         for company_info in ret_val:
             if company_info:
                 for name, record in company_info.items():
+                    # Tests if company name is contained in the file provided
                     self.assertTrue(name in self.company_names_from_file)
+
+                    # Company record tests
+                    self.assertIsInstance(record, dict)
+
+                    for k, v in record.items():
+                        self.assertIsInstance(v, self.RECORD_TO_TYPE_MAP[k])
 
 
 if __name__ == "__main__":
