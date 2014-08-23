@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import csv
 
 
@@ -45,11 +47,7 @@ if __name__ == "__main__":
 
     for entry in entries:
         for key, value in entry.items():
-            # Limitation of python 2, where we could pass end parameter
-            # just like we can do it in python 3, so in order to print the
-            # line without the newline character we have to resort to ','
-            # operator
-            print "%s - " % key,
+            print("{} - ".format(key), end=' ')
             for k, v in value.items():
-                print "%s - %s," % (k, v),
-            print
+                print("{} - {},".format(k, v), end=' ')
+            print()
