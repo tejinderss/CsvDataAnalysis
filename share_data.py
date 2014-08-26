@@ -15,7 +15,7 @@ def get_shares_list():
     company_shares_list = OrderedDict()
 
     try:
-        with open('test_shares_data.csv', 'rb') as csvfile:
+        with open('test_shares_data.csv', 'r') as csvfile:
             shares_reader = csv.DictReader(csvfile, delimiter=',')
 
             company_names = shares_reader.fieldnames[2:]
