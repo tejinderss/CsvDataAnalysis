@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import csv
+from collections import OrderedDict
 
 
 def get_shares_list():
@@ -11,7 +12,7 @@ def get_shares_list():
         highest corresponding share rate along with other data
     """
 
-    company_shares_list = []
+    company_shares_list = OrderedDict()
 
     try:
         with open('test_shares_data.csv', 'rb') as csvfile:
@@ -27,12 +28,11 @@ def get_shares_list():
                 max_for_company = max(
                     shares_list, key=lambda x: int(x[company_name]))
 
-                company_shares_list.append({
-                    company_name: {
+                company_shares_list[company_name] = {
                         MONTH_FIELD_NAME: max_for_company[MONTH_FIELD_NAME],
                         YEAR_FIELD_NAME: int(max_for_company[YEAR_FIELD_NAME]),
                         MAX_PRICE_FIELD_NAME: int(max_for_company[company_name])
-                        }})
+                        }
 
     except IOError:
         pass
@@ -47,12 +47,11 @@ def main():
         # Cannot do this in module level execution, hence the main function
         return
 
-    for entry in entries:
-        for key, value in entry.items():
-            print("{} - ".format(key), end=' ')
-            for k, v in value.items():
-                print("{} - {},".format(k, v), end=' ')
-            print()
+    for key, value in entries.items():
+        print("{} - ".format(key), end=' ')
+        for k, v in value.items():
+            print("{} - {},".format(k, v), end=' ')
+        print()
 
 
 if __name__ == "__main__":
